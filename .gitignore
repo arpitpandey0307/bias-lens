@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Environment
+.env
+.env.local
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads & Reports (runtime generated)
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/reports/*
+!backend/reports/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Unnecessary docs (keep only README.md)
+BUILD_COMPLETE.md
+COMPLETION_SUMMARY.md
+DEMO_SCRIPT.md
+DEPLOYMENT_CHECKLIST.md
+FINAL_DELIVERY.md
+FINAL_STATUS.md
+IMPLEMENTATION_STATUS.md
+QUICKSTART.md
+QUICK_REFERENCE.md
+TEST_GUIDE.md
+WORK_COMPLETED.md
+biaslens_hackathon_workflow.html
+
+# Tool/IDE folders
+.kiro/
+design/
+.gemini/
+
+# Lock files (optional - keep package-lock for reproducibility)
