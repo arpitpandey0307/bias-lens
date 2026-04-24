@@ -11,7 +11,7 @@ type AppState = 'upload' | 'schema' | 'analysis';
 function App() {
   const [state, setState] = useState<AppState>('upload');
   const [uploadData, setUploadData] = useState<UploadResponse | null>(null);
-  const [schemaData, setSchemaData] = useState<SchemaValidationResponse | null>(null);
+  const [, setSchemaData] = useState<SchemaValidationResponse | null>(null);
   const [selectedProtectedAttr, setSelectedProtectedAttr] = useState<string>('');
   const [selectedOutcome, setSelectedOutcome] = useState<string>('');
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { UploadResponse, SchemaValidationResponse, FairnessAnalysisResponse, ExportResponse, SampleDataset, SampleLoadResponse } from './types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL = (import.meta as any).env.VITE_API_URL || '';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

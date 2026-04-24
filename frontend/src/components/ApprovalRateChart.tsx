@@ -50,7 +50,7 @@ export default function ApprovalRateChart({ groupStatistics }: ApprovalRateChart
             formatter={(value: number) => [`${value.toFixed(1)}%`, 'Approval Rate']}
           />
           <Bar dataKey="approvalRate" radius={[0, 4, 4, 0]}>
-            {data.map((entry, index) => (
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill="url(#primaryGradient)"
