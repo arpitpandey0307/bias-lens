@@ -31,6 +31,7 @@ BiasLens enables non-technical users to audit AI systems for demographic bias. I
 - 📤 CSV upload with auto-delimiter detection
 - 🧠 Smart schema detection (auto-identifies protected attributes and outcome columns)
 - 📊 Four fairness metrics with traffic-light pass/warning/fail indicators
+- ✨ **AI-powered insights** — Gemini 2.0 Flash generates plain-English explanations and recommendations
 - 📈 Interactive charts and confusion matrix heatmaps
 - 📄 One-click PDF report export
 - 🧪 Built-in sample datasets (UCI Adult Income, COMPAS Recidivism)
@@ -62,6 +63,7 @@ graph TB
         EOD[Equal Opportunity]
         PPD[Predictive Parity]
         CM[Confusion Matrix]
+        GEMINI[Gemini 2.0 Flash AI]
     end
 
     subgraph Storage["Storage"]
@@ -139,6 +141,7 @@ Each metric is classified:
 |-------|-----------|
 | **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, Recharts |
 | **Backend** | Python 3.10+, FastAPI, Pydantic v2, Uvicorn |
+| **AI** | Google Gemini 2.0 Flash (bias explanations & recommendations) |
 | **Analysis** | Pandas, NumPy, Scikit-learn |
 | **Reports** | ReportLab (PDF), Jinja2 (HTML) |
 | **DevOps** | Docker, Docker Compose |
@@ -158,6 +161,13 @@ Each metric is classified:
 ```bash
 cd backend
 pip install -r requirements.txt
+
+# (Optional) Set Gemini API key for AI-powered insights
+# Get a free key from https://aistudio.google.com/apikey
+export GEMINI_API_KEY=your_api_key_here  # Linux/Mac
+# set GEMINI_API_KEY=your_api_key_here   # Windows CMD
+# $env:GEMINI_API_KEY="your_api_key_here" # PowerShell
+
 python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
@@ -214,6 +224,7 @@ bias-lens/
 │   ├── main.py                  # FastAPI app entry point
 │   ├── models.py                # Pydantic request/response models
 │   ├── fairness_utils.py        # Core fairness metric computations
+│   ├── gemini_utils.py          # Gemini AI explanation generator
 │   ├── utils.py                 # Session & file utilities
 │   ├── error_handlers.py        # Custom exception handlers
 │   ├── report_generator.py      # PDF report generation

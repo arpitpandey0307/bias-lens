@@ -68,12 +68,21 @@ export interface GroupStatistics {
   confusion_matrix: ConfusionMatrixData;
 }
 
+export interface AIExplanation {
+  summary: string;
+  key_findings: string[];
+  recommendations: string[];
+  risk_level: 'low' | 'medium' | 'high' | 'critical';
+  powered_by: string;
+}
+
 export interface FairnessAnalysisResponse {
   analysis_id: string;
   protected_groups: string[];
   metrics: Record<string, MetricResult>;
   group_statistics: Record<string, GroupStatistics>;
   computation_time_ms: number;
+  ai_explanation?: AIExplanation;
 }
 
 

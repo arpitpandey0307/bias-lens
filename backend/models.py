@@ -86,12 +86,20 @@ class GroupStatistics(BaseModel):
     approval_rate: float
     confusion_matrix: ConfusionMatrixData
 
+class AIExplanation(BaseModel):
+    summary: str = ""
+    key_findings: List[str] = []
+    recommendations: List[str] = []
+    risk_level: Literal["low", "medium", "high", "critical"] = "medium"
+    powered_by: str = "Gemini 2.0 Flash"
+
 class FairnessAnalysisResponse(BaseModel):
     analysis_id: str
     protected_groups: List[str]
     metrics: Dict[str, MetricResult]
     group_statistics: Dict[str, GroupStatistics]
     computation_time_ms: int
+    ai_explanation: Optional[AIExplanation] = None
 
 
 # Export Models

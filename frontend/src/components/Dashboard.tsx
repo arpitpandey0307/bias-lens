@@ -82,6 +82,66 @@ export default function Dashboard({ sessionId, protectedAttribute, outcomeColumn
         </p>
       </div>
 
+      {/* AI-Powered Insights (Gemini) */}
+      {analysis.ai_explanation && (
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+              <span className="text-white text-sm">✨</span>
+            </div>
+            <div>
+              <h3 className="text-headline-sm font-semibold text-gray-900">AI-Powered Insights</h3>
+              <p className="text-xs text-gray-500">Powered by {analysis.ai_explanation.powered_by}</p>
+            </div>
+            <span className={`ml-auto px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+              analysis.ai_explanation.risk_level === 'critical' ? 'bg-red-100 text-red-700' :
+              analysis.ai_explanation.risk_level === 'high' ? 'bg-orange-100 text-orange-700' :
+              analysis.ai_explanation.risk_level === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+              'bg-green-100 text-green-700'
+            }`}>
+              {analysis.ai_explanation.risk_level} risk
+            </span>
+          </div>
+
+          {/* Summary */}
+          <p className="text-body-md text-gray-700 mb-5 leading-relaxed">
+            {analysis.ai_explanation.summary}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Key Findings */}
+            <div className="bg-white/70 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <span>🔍</span> Key Findings
+              </h4>
+              <ul className="space-y-2">
+                {analysis.ai_explanation.key_findings.map((finding, i) => (
+                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                    <span className="text-blue-500 mt-0.5 flex-shrink-0">•</span>
+                    <span>{finding}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Recommendations */}
+            <div className="bg-white/70 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <span>💡</span> Recommendations
+              </h4>
+              <ul className="space-y-2">
+                {analysis.ai_explanation.recommendations.map((rec, i) => (
+                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                    <span className="text-indigo-500 mt-0.5 flex-shrink-0">{i + 1}.</span>
+                    <span>{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Metric Scorecards */}
       <div>
         <h3 className="text-body-md font-medium text-on-surface mb-4 uppercase tracking-wider text-on-surface-variant">

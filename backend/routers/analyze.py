@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 import uuid
 
-from models import AnalyzeRequest, FairnessAnalysisResponse, MetricResult, GroupStatistics, ConfusionMatrixData
+from models import AnalyzeRequest, FairnessAnalysisResponse, MetricResult, GroupStatistics, ConfusionMatrixData, AIExplanation
 from fairness_utils import (
     compute_statistical_parity_difference,
     compute_disparate_impact,
@@ -12,6 +12,7 @@ from fairness_utils import (
     compute_confusion_matrix,
     _encode_outcome_column
 )
+from gemini_utils import generate_bias_explanation
 from utils import generate_request_id
 
 router = APIRouter(prefix="/api", tags=["analyze"])
@@ -231,13 +232,29 @@ async def analyze_fairness(request: AnalyzeRequest):
     # Calculate computation time
     computation_time_ms = int((time.time() - start_time) * 1000)
     
+    # Generate AI explanation via Gemini (optional, non-blocking)
+    ai_explanation = None
+    try:
+        explanation_data = await generate_bias_explanation(
+            metrics=metrics,
+            group_statistics=group_stats,
+            protected_attribute=request.protected_attribute,
+            outcome_column=request.outcome_column
+        )
+        if explanation_data:
+            ai_explanation = AIExplanation(**explanation_data)
+            print(f"[DEBUG] Gemini AI explanation generated successfully")
+    except Exception as e:
+        print(f"[WARN] Gemini explanation failed (non-fatal): {e}")
+    
     # Store analysis (include protected_attribute and outcome_column for export)
     analysis_result = FairnessAnalysisResponse(
         analysis_id=analysis_id,
         protected_groups=protected_groups,
         metrics=metrics,
         group_statistics=group_stats,
-        computation_time_ms=computation_time_ms
+        computation_time_ms=computation_time_ms,
+        ai_explanation=ai_explanation
     )
     
     analyses[analysis_id] = {
